@@ -1,6 +1,4 @@
-﻿// Deneme.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
+﻿
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -20,7 +18,7 @@ public:
      virtual float calculateFinalResult() = 0;
      virtual void setSum(float inputVal) = 0;
      vector<string> pieces;
-private:
+protected:
     float sum = 0;
 };
 
@@ -35,8 +33,7 @@ public:
     float getSum() { return sum; };
     void setSum(float inputVal) { sum = inputVal; };
     vector<string> pieces = {"pb","ab","fb","kb","vb","sb"};
-private:
-    float sum = 0;
+
 };
 class blackPieces :public BaseChess
 {
@@ -49,8 +46,7 @@ public:
     float getSum() { return sum; };
     void setSum(float inputVal) { sum = inputVal; };
     vector<string> pieces = { "ps","as","fs","ks","vs","ss" };
-private:
-    float sum = 0;
+
 };
 
 //Reading function from .txt file
@@ -73,10 +69,8 @@ string BaseChess::ReadFromFile()
     else
     {
         cout << "File could not be found";
-        delete output;
-        return 0;
     }
-
+    return 0;
 }
 
 //After reading the .txt file, string data need to store in a 2d vector. This func store the data in proper way.
@@ -84,7 +78,7 @@ vector<vector<string>> BaseChess::fixTheReadedFile(string readval)
 {
     int counter = 0;
     string tempsquares[16][16];
-    char* char_arr;
+    char* char_arr = NULL;
     char_arr = &readval[0];
     for (int i = 0; i < 16; i++)
     {
@@ -106,7 +100,7 @@ vector<vector<string>> BaseChess::fixTheReadedFile(string readval)
     }
     return chessString;
 }
-//Check all the threat from white pawns
+//Check all threats from white pawns
 vector<vector<string>> whitePieces::checkPawnThread()
 {
     for (int row = 0; row < chessString.size(); row++)
@@ -130,7 +124,7 @@ vector<vector<string>> whitePieces::checkPawnThread()
     }
     return chessString;
 }
-//Check all the threat from white knights
+//Check all threats from white knights
 vector<vector<string>> whitePieces::checkKnightThread()
 {
     for (int row = 0; row < chessString.size(); row++)
@@ -184,11 +178,10 @@ vector<vector<string>> whitePieces::checkKnightThread()
     }
     return chessString;
 }
-//Check all the threat from white queen
+//Check all threats from white queen
 vector<vector<string>> whitePieces::checkQueenThread()
 {
     int counter = 1;
-    char a;
     for (int row = 0; row < chessString.size(); row++)
     {
         for (int col = 0; col < chessString[row].size(); col++)
@@ -413,7 +406,7 @@ float whitePieces::calculateFinalResult()
     }
     return sum;
 }
-//Check all the threat from black pawns
+//Check all threats from black pawns
 vector<vector<string>> blackPieces::checkPawnThread()
 {
     for (int row = 0; row < chessString.size(); row++)
@@ -437,7 +430,7 @@ vector<vector<string>> blackPieces::checkPawnThread()
     }
     return chessString;
 }
-//Check all the threat from black knights
+//Check all threats from black knights
 vector<vector<string>> blackPieces::checkKnightThread()
 {
     for (int row = 0; row < chessString.size(); row++)
@@ -491,11 +484,10 @@ vector<vector<string>> blackPieces::checkKnightThread()
     }
     return chessString;
 }
-//Check all the threat from black queen
+//Check all threats from black queen
 vector<vector<string>> blackPieces::checkQueenThread()
 {
     int counter = 1;
-    char a;
     for (int row = 0; row < chessString.size(); row++)
     {
         for (int col = 0; col < chessString[row].size(); col++)
